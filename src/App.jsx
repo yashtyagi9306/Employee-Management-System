@@ -8,7 +8,8 @@ import { AuthContext } from "./context/AuthProvider.jsx";
 function App() {
   const [user, setUser] = useState(null);
   const [loggedInUserData, setLoggedInUserData] = useState(null)
-  const authData = useContext(AuthContext);
+  const [userData, setUserData] = useContext(AuthContext);
+  console.log(userData);
   
 
   // Initialize localStorage data
@@ -20,7 +21,7 @@ function App() {
 
   useEffect(()=>{
     const loggedInUser = localStorage.getItem('loggedInUser')
-    console.log(loggedInUser);
+    
     if(loggedInUser){
       const userData = JSON.parse(loggedInUser)
       setUser(userData.role)
@@ -32,7 +33,7 @@ function App() {
   
 
   const handleLogin = (email, password) => {
-    const employee = authData?.employees?.find(
+    const employee = userData?.find(
       (e) => e.email === email && e.password === password
     );
 
@@ -43,7 +44,7 @@ function App() {
         "loggedInUser",
         JSON.stringify({
           role: "admin",
-          data: authData.admin
+          data: userData.admin
         })
       );
 
@@ -72,9 +73,9 @@ function App() {
     <div className="App">
       {!user && <Login handleLogin={handleLogin} />}
 
-      {user === "admin" && <AdminDashboard data={loggedInUserData}/>}
+      {user === "admin" && <AdminDashboard changeUser={setUser}/>}
 
-      {user === "employee" && <EmployeeDashboard data={loggedInUserData}/>}
+      {user === "employee" && <EmployeeDashboard changeUser={setUser} data={loggedInUserData}/>}
     </div>
   );
 }
