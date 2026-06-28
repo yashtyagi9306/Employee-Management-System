@@ -1,3 +1,5 @@
+// src/utils/localStorage.jsx
+
 const employees = [
   {
     id: 1,
@@ -12,6 +14,7 @@ const employees = [
     },
     tasks: [
       {
+        taskId: 101,
         newTask: false,
         active: true,
         completed: false,
@@ -22,6 +25,7 @@ const employees = [
         category: "Design"
       },
       {
+        taskId: 102,
         newTask: false,
         active: false,
         completed: true,
@@ -32,6 +36,7 @@ const employees = [
         category: "Development"
       },
       {
+        taskId: 103,
         newTask: false,
         active: false,
         completed: false,
@@ -57,6 +62,7 @@ const employees = [
     },
     tasks: [
       {
+        taskId: 201,
         newTask: false,
         active: true,
         completed: false,
@@ -67,6 +73,7 @@ const employees = [
         category: "UI/UX"
       },
       {
+        taskId: 202,
         newTask: false,
         active: true,
         completed: false,
@@ -77,6 +84,7 @@ const employees = [
         category: "Documentation"
       },
       {
+        taskId: 203,
         newTask: false,
         active: false,
         completed: true,
@@ -87,6 +95,7 @@ const employees = [
         category: "Development"
       },
       {
+        taskId: 204,
         newTask: false,
         active: false,
         completed: true,
@@ -112,6 +121,7 @@ const employees = [
     },
     tasks: [
       {
+        taskId: 301,
         newTask: false,
         active: true,
         completed: false,
@@ -122,6 +132,7 @@ const employees = [
         category: "Testing"
       },
       {
+        taskId: 302,
         newTask: false,
         active: false,
         completed: true,
@@ -132,6 +143,7 @@ const employees = [
         category: "Performance"
       },
       {
+        taskId: 303,
         newTask: false,
         active: false,
         completed: false,
@@ -142,6 +154,7 @@ const employees = [
         category: "Security"
       },
       {
+        taskId: 304,
         newTask: false,
         active: true,
         completed: false,
@@ -152,6 +165,7 @@ const employees = [
         category: "Management"
       },
       {
+        taskId: 305,
         newTask: false,
         active: false,
         completed: true,
@@ -177,6 +191,7 @@ const employees = [
     },
     tasks: [
       {
+        taskId: 401,
         newTask: false,
         active: true,
         completed: false,
@@ -187,6 +202,7 @@ const employees = [
         category: "Development"
       },
       {
+        taskId: 402,
         newTask: false,
         active: false,
         completed: true,
@@ -197,6 +213,7 @@ const employees = [
         category: "Design"
       },
       {
+        taskId: 403,
         newTask: false,
         active: true,
         completed: false,
@@ -207,6 +224,7 @@ const employees = [
         category: "Research"
       },
       {
+        taskId: 404,
         newTask: false,
         active: false,
         completed: false,
@@ -232,6 +250,7 @@ const employees = [
     },
     tasks: [
       {
+        taskId: 501,
         newTask: false,
         active: true,
         completed: false,
@@ -242,6 +261,7 @@ const employees = [
         category: "Development"
       },
       {
+        taskId: 502,
         newTask: false,
         active: false,
         completed: true,
@@ -252,6 +272,7 @@ const employees = [
         category: "Marketing"
       },
       {
+        taskId: 503,
         newTask: false,
         active: false,
         completed: true,
@@ -262,6 +283,7 @@ const employees = [
         category: "Content"
       },
       {
+        taskId: 504,
         newTask: false,
         active: true,
         completed: false,
@@ -272,6 +294,7 @@ const employees = [
         category: "Research"
       },
       {
+        taskId: 505,
         newTask: false,
         active: false,
         completed: false,
@@ -292,13 +315,12 @@ const admin = {
 };
 
 export const setLocalStorage = () => {
-    localStorage.setItem('employees', JSON.stringify(employees))
-    localStorage.setItem('admin', JSON.stringify(admin))
+  localStorage.setItem('employees', JSON.stringify(employees))
+  localStorage.setItem('admin', JSON.stringify(admin))
 }
 
 export const getLocalStorage = () => {
-    const employees = JSON.parse(localStorage.getItem('employees'));
-    const admin = JSON.parse(localStorage.getItem('admin'));
-
-    return {employees, admin}
+  const employees = JSON.parse(localStorage.getItem('employees'))
+  const admin = JSON.parse(localStorage.getItem('admin'))
+  return { employees, admin }
 }
