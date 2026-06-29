@@ -43,6 +43,37 @@ https://github.com/yashtyagi9306/Employee-Management-System
   * Completed
   * Failed
 
+
+
+## 🔑 Demo Credentials
+
+Use the following accounts to explore the application.
+
+### Admin
+
+```text
+Email: admin@example.com
+Password: 123
+```
+
+### Employees
+
+```text
+Email: employee1@example.com
+Password: 123
+
+Email: employee2@example.com
+Password: 123
+
+Email: employee3@example.com
+Password: 123
+
+Email: employee4@example.com
+Password: 123
+
+Email: employee5@example.com
+Password: 123
+```
 ## User Experience
 
 * Modern SaaS-inspired UI
@@ -54,21 +85,40 @@ https://github.com/yashtyagi9306/Employee-Management-System
 
 ---
 
+## 📖 How to Use
+
+### Admin Workflow
+
+1. Log in using the Admin credentials.
+2. Create new tasks and assign them to employees.
+3. Edit or delete existing tasks.
+4. Search employees using the search bar.
+5. Monitor team statistics from the dashboard.
+
+### Employee Workflow
+
+1. Log in using any Employee account.
+2. View assigned tasks.
+3. Accept new tasks.
+4. Mark tasks as Completed or Failed.
+5. Reopen completed or failed tasks if required.
+6. Filter tasks by status.
+
+> **Note:** Bloom is a frontend-only demonstration project. User data and task state are stored locally using the browser's Local Storage.
+
 # 🖼 Screenshots
 
-## Login
-
-> Add `login.png`
-
-## Admin Dashboard
-
-## Login
+>## Login
 
 ![Login](screenshots/login.png)
 
+## Admin Dashboard
+
+![Admin Dashboard](screenshots/admin_dashboard.png)
+
 ## Employee Dashboard
 
-![Employee Dashboard](screenshots/employee-dashboard.png)
+![Employee Dashboard](screenshots/employee_dashboard.png)
 
 # 🛠 Tech Stack
 
