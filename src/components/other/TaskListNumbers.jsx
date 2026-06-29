@@ -2,28 +2,30 @@
 
 import React from 'react'
 
+const statConfig = [
+  { key: 'newTask',   label: 'NEW',       dot: '#a78bfa' },
+  { key: 'completed', label: 'COMPLETED',  dot: '#34d399' },
+  { key: 'active',   label: 'ACCEPTED',   dot: '#60a5fa' },
+  { key: 'failed',   label: 'FAILED',     dot: '#f87171' },
+]
+
 const TaskListNumbers = ({ employee }) => {
   return (
-    <div className="flex mt-10 justify-between gap-5">
-      <div className="text-white rounded-xl px-9 py-6 w-[45%] bg-red-400">
-        <h2 className="text-white text-xl font-bold">{employee.taskNumbers.newTask}</h2>
-        <h3 className="text-xl font-medium">New Task</h3>
-      </div>
-
-      <div className="text-white rounded-xl px-9 py-6 w-[45%] bg-blue-400">
-        <h2 className="text-white text-xl font-bold">{employee.taskNumbers.completed}</h2>
-        <h3 className="text-xl font-medium">Completed Task</h3>
-      </div>
-
-      <div className="text-white rounded-xl px-9 py-6 w-[45%] bg-green-400">
-        <h2 className="text-white text-xl font-bold">{employee.taskNumbers.active}</h2>
-        <h3 className="text-xl font-medium">Accepted Task</h3>
-      </div>
-
-      <div className="text-white rounded-xl px-9 py-6 w-[45%] bg-yellow-400">
-        <h2 className="text-white text-xl font-bold">{employee.taskNumbers.failed}</h2>
-        <h3 className="text-xl font-medium">Failed Task</h3>
-      </div>
+    <div className="grid grid-cols-4 gap-4 mb-8">
+      {statConfig.map(({ key, label, dot }) => (
+        <div key={key} className="bg-white rounded-2xl px-6 py-5 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-2 h-2 rounded-full shrink-0" style={{ background: dot }} />
+            <span className="text-[11px] font-semibold tracking-widest text-gray-400">{label}</span>
+          </div>
+          <div className="flex items-end justify-between">
+            <span className="text-4xl font-black text-gray-900">
+              {String(employee.taskNumbers[key]).padStart(2, '0')}
+            </span>
+            <span className="text-xs text-gray-300 mb-1">tasks</span>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }

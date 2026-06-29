@@ -1,76 +1,119 @@
-import React from "react";
-import { useState } from "react";
+// src/components/Auth/Login.jsx
 
-const Login = ({handleLogin}) => {
+import React, { useState } from 'react'
+import { Mail, Lock, Sparkles } from 'lucide-react'
 
+const Login = ({ handleLogin }) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-    const [email,setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const submitHandler = (e) => {
-        e.preventDefault();
-        console.log("Form Submitted.");
-        console.log("email is",email);
-        console.log("password is",password)
-        handleLogin(email,password)
-        setEmail("")
-        setPassword("")
-        // Handle login logic here
-    };
-
+  const submitHandler = (e) => {
+    e.preventDefault()
+    handleLogin(email, password)
+    setEmail('')
+    setPassword('')
+  }
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-[#0f0f13]">
-      {/* Background Glow */}
-      <div className="absolute h-96 w-96 rounded-full bg-purple-500/20 blur-3xl"></div>
-      <div className="absolute right-20 top-20 h-72 w-72 rounded-full bg-violet-300/10 blur-3xl"></div>
+    <div className="min-h-screen w-screen flex items-center justify-center relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #e8e4f8 0%, #f0f7ee 50%, #fde8e8 100%)'
+      }}
+    >
+      {/* Soft background blobs */}
+      <div className="absolute top-0 left-0 w-96 h-96 rounded-full opacity-40"
+        style={{ background: 'radial-gradient(circle, #d4c8f5 0%, transparent 70%)' }}
+      />
+      <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full opacity-40"
+        style={{ background: 'radial-gradient(circle, #fbc8d4 0%, transparent 70%)' }}
+      />
+      <div className="absolute top-1/2 right-0 w-72 h-72 rounded-full opacity-30"
+        style={{ background: 'radial-gradient(circle, #c8f5d4 0%, transparent 70%)' }}
+      />
 
-      {/* Login Card */}
-      <div className="relative w-[400px] rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
-        <h1 className="mb-2 text-center text-4xl font-semibold tracking-tight text-white">
-          Welcome Back
-        </h1>
+      {/* Card */}
+      <div className="relative z-10 bg-white rounded-3xl shadow-xl px-10 py-10 w-[440px]">
 
-        <p className="mb-8 text-center text-gray-400">
-          Sign in to continue your journey
+        {/* Brand */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, #a78bfa, #ec4899)' }}
+          >
+            <Sparkles size={18} color="white" />
+          </div>
+          <span className="text-lg font-semibold text-gray-800">Bloom EMS</span>
+        </div>
+
+        {/* Heading */}
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h1>
+        <p className="text-gray-400 text-sm mb-8">
+          Sign in to pick up where your team left off.
         </p>
 
-        <form 
-        onSubmit={(e)=>{submitHandler(e)}}
-        className="flex flex-col gap-5">
-          <input
-            value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
-            required
-            type="email"
-            placeholder="Email Address"
-            className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder-gray-500 outline-none transition-all duration-300 focus:border-purple-300 focus:bg-white/10 focus:shadow-[0_0_20px_rgba(196,181,253,0.25)]"
-          />
+        {/* Form */}
+        <form onSubmit={submitHandler} className="flex flex-col gap-5">
 
-          <input
-            required  
-            value = {password}
-            onChange={(e)=>{setPassword(e.target.value)}}
-            type="password"
-            placeholder="Password"
-            className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder-gray-500 outline-none transition-all duration-300 focus:border-purple-300 focus:bg-white/10 focus:shadow-[0_0_20px_rgba(196,181,253,0.25)]"
-          />
+          {/* Email */}
+          <div>
+            <label className="text-xs font-semibold text-gray-500 tracking-widest uppercase mb-2 block">
+              Email
+            </label>
+            <div className="flex items-center gap-3 border border-gray-200 rounded-full px-4 py-3 focus-within:border-purple-300 focus-within:shadow-sm transition-all">
+              <Mail size={16} className="text-gray-400 shrink-0" />
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                type="email"
+                placeholder="you@company.com"
+                className="flex-1 outline-none text-sm text-gray-700 placeholder:text-gray-300 bg-transparent"
+              />
+            </div>
+          </div>
 
+          {/* Password */}
+          <div>
+            <label className="text-xs font-semibold text-gray-500 tracking-widest uppercase mb-2 block">
+              Password
+            </label>
+            <div className="flex items-center gap-3 border border-gray-200 rounded-full px-4 py-3 focus-within:border-purple-300 focus-within:shadow-sm transition-all">
+              <Lock size={16} className="text-gray-400 shrink-0" />
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                type="password"
+                placeholder="••••••••"
+                className="flex-1 outline-none text-sm text-gray-700 placeholder:text-gray-300 bg-transparent"
+              />
+            </div>
+          </div>
+
+          {/* Submit */}
           <button
-            className="mt-2 rounded-2xl bg-gradient-to-r from-purple-400 via-violet-500 to-purple-600 py-4 font-medium text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(168,85,247,0.45)] active:scale-[0.98]"
+            type="submit"
+            className="w-full py-3.5 rounded-full text-white font-semibold text-sm mt-2 transition-opacity hover:opacity-90"
+            style={{ background: 'linear-gradient(to right, #a78bfa, #ec4899)' }}
           >
-            Login
+            Sign in
           </button>
+
         </form>
 
-        <p className="mt-8 text-center text-sm text-gray-400">
-          Don't have an account?
-          <span className="ml-1 cursor-pointer font-medium text-purple-300 transition hover:text-purple-200">
-            Sign Up
+        {/* Footer */}
+        <p className="text-center text-sm text-gray-400 mt-6">
+          Don't have an account?{' '}
+          <span className="text-purple-500 font-medium cursor-pointer hover:text-purple-400">
+            Sign up
           </span>
         </p>
+        <p className="text-center text-xs text-gray-300 mt-2">
+          Tip: emails starting with <code className="font-mono">admin</code> open the admin view.
+        </p>
+
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

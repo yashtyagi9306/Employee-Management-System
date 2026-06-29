@@ -1,34 +1,62 @@
-import React,{useContext} from 'react'
-import { AuthContext } from "../../context/AuthProvider"
-const AllTask = () => {
-    const {userData, setUserData} = useContext(AuthContext)
-   
+// src/components/other/AllTask.jsx
 
+import React, { useContext } from 'react'
+import { AuthContext } from '../../context/AuthProvider'
+
+const badge = (value, color) => {
+  if (value === 0) return <span className="text-sm text-gray-300">0</span>
+  const styles = {
+    purple: 'bg-purple-100 text-purple-500',
+    blue:   'bg-blue-100 text-blue-500',
+    green:  'bg-green-100 text-green-500',
+    red:    'bg-red-100 text-red-500',
+  }
+  return (
+    <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${styles[color]}`}>
+      {value}
+    </span>
+  )
+}
+
+const AllTask = () => {
+  const { userData } = useContext(AuthContext)
 
   return (
-    <div className="bg-[#1c1c1c] p-5 mt-10 rounded h-48 " >
-        <div className='border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded'>
-            <h2 className='text-lg font-medium  w-1/5 text-white' >Employee</h2>
-            <h3 className='text-lg font-medium w-1/5 text-white'>New Task</h3>
-            <h5 className='text-lg font-medium w-1/5 text-white'>Active Task</h5>
-            <h5 className='text-lg font-medium w-1/5 text-white'>Completed Task</h5>
-            <h5 className='text-lg font-medium w-1/5 text-white'>Failed Task</h5>
-        </div>
-        <div className='h-[80%] overflow-auto'>
-        {userData.map(function(elem, idx){
-            return <div key={idx} className='border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded'>
-            <h2 className='text-lg font-medium  w-1/5 text-white' >{elem.firstName}</h2>
-            <h3 className='text-lg font-medium w-1/5 text-blue-400'>{elem.taskNumbers.newTask}</h3>
-            <h5 className='text-lg font-medium w-1/5 text-yellow-400'>{elem.taskNumbers.active}</h5>
-            <h5 className='text-lg font-medium w-1/5 text-white'>{elem.taskNumbers.completed}</h5>
-            <h5 className='text-lg font-medium w-1/5 text-red-600'>{elem.taskNumbers.failed}</h5>
-        </div>
-        })}
-        </div>
-        
-        
+    <div className="bg-white rounded-2xl p-7 shadow-sm border border-gray-100">
+      <h2 className="text-lg font-bold text-gray-900 mb-1">Team performance</h2>
+      <p className="text-sm text-gray-400 mb-5">Workload distribution at a glance.</p>
 
-        
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-gray-100">
+            {['Employee', 'New', 'Active', 'Completed', 'Failed'].map((col) => (
+              <th key={col}
+                className="text-[11px] font-semibold text-gray-400 tracking-widest uppercase pb-3 text-left first:w-1/2">
+                {col}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {userData.map((emp) => (
+            <tr key={emp.id} className="border-b border-gray-50 last:border-0">
+              <td className="py-3.5">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                    style={{ background: 'linear-gradient(135deg, #a78bfa, #c4b5fd)' }}>
+                    {emp.firstName[0]}
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">{emp.firstName}</span>
+                </div>
+              </td>
+              <td className="py-3.5">{badge(emp.taskNumbers.newTask,   'purple')}</td>
+              <td className="py-3.5">{badge(emp.taskNumbers.active,    'blue')}</td>
+              <td className="py-3.5">{badge(emp.taskNumbers.completed, 'green')}</td>
+              <td className="py-3.5">{badge(emp.taskNumbers.failed,    'red')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

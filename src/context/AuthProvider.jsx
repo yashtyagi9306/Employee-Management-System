@@ -12,22 +12,33 @@ const AuthProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState(null)
 
   // On mount: seed localStorage if empty, then restore session
-  useEffect(() => {
-    if (!localStorage.getItem('employees')) {
+  // In AuthProvider.jsx, replace the useEffect with this:
+
+useEffect(() => {
+  const stored = localStorage.getItem('employees')
+
+  // If no data, or data is in old format (no taskId), re-seed
+  if (!stored) {
+    setLocalStorage()
+  } else {
+    const parsed = JSON.parse(stored)
+    const isOldFormat = parsed[0]?.tasks[0]?.taskId === undefined
+    if (isOldFormat) {
       setLocalStorage()
     }
-    const { employees } = getLocalStorage()
-    setUserData(employees)
+  }
 
-    const stored = localStorage.getItem('loggedInUser')
-    if (stored) {
-      const parsed = JSON.parse(stored)
-      // Guard: only restore if it has the new shape { role, id }
-      if (parsed && parsed.id !== undefined) {
-        setLoggedInUser(parsed)
-      }
+  const { employees } = getLocalStorage()
+  setUserData(employees)
+
+  const storedUser = localStorage.getItem('loggedInUser')
+  if (storedUser) {
+    const parsed = JSON.parse(storedUser)
+    if (parsed && parsed.id !== undefined) {
+      setLoggedInUser(parsed)
     }
-  }, [])
+  }
+}, [])
 
   // ─── Auth ────────────────────────────────────────────────────────────────
 
