@@ -19,7 +19,7 @@ const TaskListNumbers = ({ employee }) => {
             <span className="text-[11px] font-semibold tracking-widest text-gray-400">{label}</span>
           </div>
           <div className="flex items-end justify-between">
-            <span className="text-4xl font-black text-gray-900">
+            <span className="text-4xl font-medium text-gray-900">
               {String(employee.taskNumbers[key]).padStart(2, '0')}
             </span>
             <span className="text-xs text-gray-300 mb-1">tasks</span>

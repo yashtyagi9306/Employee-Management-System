@@ -2,18 +2,25 @@
 
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthProvider'
+import { useToast } from '../ui/Toast'
+import { Loader2 } from 'lucide-react'
 
 const CreateTask = () => {
   const { userData, createTask } = useContext(AuthContext)
+  const toast = useToast()
 
   const [taskTitle, setTaskTitle] = useState('')
   const [taskDescription, setTaskDescription] = useState('')
   const [taskDate, setTaskDate] = useState('')
   const [assignToId, setAssignToId] = useState('')
   const [category, setCategory] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
+    setLoading(true)
+    await new Promise(r => setTimeout(r, 400))
+
     createTask({
       taskTitle,
       taskDescription,
@@ -21,14 +28,23 @@ const CreateTask = () => {
       category,
       assignToId: Number(assignToId),
     })
+
+    const assignedName = userData.find(e => e.id === Number(assignToId))?.firstName
+    toast(`Task assigned to ${assignedName} successfully.`, 'success')
+
     setTaskTitle('')
     setTaskDescription('')
     setTaskDate('')
     setAssignToId('')
     setCategory('')
+    setLoading(false)
   }
 
-  const inputClass = "w-full text-sm text-gray-700 placeholder:text-gray-300 py-3 px-4 rounded-2xl border border-gray-200 outline-none focus:border-purple-300 focus:shadow-sm transition-all bg-white"
+  const inputClass = `w-full text-sm text-gray-700 placeholder:text-gray-300 py-3 px-4
+    rounded-2xl border border-gray-200 outline-none bg-white
+    transition-all duration-200
+    focus:border-purple-400 focus:shadow-[0_0_0_3px_rgba(167,139,250,0.15)]`
+
   const labelClass = "text-[11px] font-semibold text-gray-400 tracking-widest uppercase mb-1.5 block"
 
   return (
@@ -39,8 +55,7 @@ const CreateTask = () => {
         <input
           value={taskTitle}
           onChange={(e) => setTaskTitle(e.target.value)}
-          required
-          type="text"
+          required type="text"
           placeholder="Make a UI design"
           className={inputClass}
         />
@@ -52,8 +67,7 @@ const CreateTask = () => {
           <input
             value={taskDate}
             onChange={(e) => setTaskDate(e.target.value)}
-            required
-            type="date"
+            required type="date"
             className={inputClass}
           />
         </div>
@@ -78,8 +92,7 @@ const CreateTask = () => {
         <input
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          required
-          type="text"
+          required type="text"
           placeholder="design, dev, docs..."
           className={inputClass}
         />
@@ -90,8 +103,7 @@ const CreateTask = () => {
         <textarea
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
-          required
-          rows="5"
+          required rows="5"
           placeholder="What does done look like?"
           className={inputClass}
           style={{ resize: 'vertical' }}
@@ -100,10 +112,16 @@ const CreateTask = () => {
 
       <button
         type="submit"
-        className="w-full py-3.5 rounded-full text-white font-semibold text-sm transition-opacity hover:opacity-90"
+        disabled={loading}
+        className="w-full py-3.5 rounded-full text-white font-semibold text-sm
+          transition-all duration-200 hover:opacity-90 hover:shadow-lg
+          active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed
+          flex items-center justify-center gap-2"
         style={{ background: 'linear-gradient(to right, #a78bfa, #ec4899)' }}
       >
-        Create task
+        {loading
+          ? <><Loader2 size={16} className="animate-spin" /> Creating…</>
+          : 'Create task'}
       </button>
 
     </form>
